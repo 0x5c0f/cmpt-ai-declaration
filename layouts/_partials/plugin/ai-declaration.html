@@ -1,0 +1,59 @@
+{{- if .IsPage -}}
+  {{- $defaults := dict
+    "enable" false
+    "description" "本文使用 AI 工具辅助创作，内容已经人工审核。"
+    "url" ""
+  -}}
+  {{- $globalConfig := site.Params.page.aiDeclaration | default dict -}}
+  {{- $pageConfig := .Params.aiDeclaration | default dict -}}
+  {{- $config := merge $defaults $globalConfig $pageConfig -}}
+  {{- if $config.enable -}}
+    {{- $description := $config.description | default (index $defaults "description") -}}
+    <div class="ai-declaration" data-expanded="false">
+      <button
+        type="button"
+        class="ai-declaration-header"
+        aria-expanded="false"
+        onclick="const p=this.parentElement;const expanded=p.dataset.expanded==='true';p.dataset.expanded=expanded?'false':'true';this.setAttribute('aria-expanded', expanded?'false':'true');"
+      >
+        <svg class="ai-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span class="ai-declaration-text">作者声明：内容由AI辅助创作</span>
+        <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <div class="ai-declaration-content">
+        <div class="ai-detail-item">
+          <svg class="detail-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"></circle>
+            <path d="M12 16V12M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+          </svg>
+          <div class="ai-value">
+            {{- $description | markdownify -}}
+          </div>
+        </div>
+        {{- with $config.url -}}
+          <div class="ai-link-item">
+            <a
+              class="ai-link"
+              href="{{ . | safeURL }}"
+              target="_blank"
+              rel="noopener noreferrer external nofollow"
+            >
+              查看相关链接
+              <svg class="external-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M14 5H19V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M10 14L19 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M19 14V19H5V5H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </a>
+          </div>
+        {{- end -}}
+      </div>
+    </div>
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,6 @@
+{{- $fingerprint := .Site.Store.Get "fingerprint" -}}
+
+{{- $options := dict "Source" "css/cmpt-ai-declaration.fixit.scss" "Fingerprint" $fingerprint -}}
+{{- $toCSS := dict "targetPath" "css/cmpt-ai-declaration.fixit.min.css" "enableSourceMap" true -}}
+{{- $options = dict "Context" . "ToCSS" $toCSS | merge $options -}}
+{{- partial "plugin/style.html" $options -}}

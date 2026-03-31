@@ -1,44 +1,32 @@
 <!-- markdownlint-disable-file MD033 MD041 -->
-<h1 align="center">{component-xxx} | FixIt</h1>
+<h1 align="center">cmpt-ai-declaration | FixIt</h1>
 
-<!-- TODO feature image here if needed -->
-
-<div align="center" class="ignore">
-  <p><!-- TODO description here if needed --></p>
+<div align="center">
+  <p>An AI authorship declaration component rendered before post content in FixIt.</p>
   <a href="/README.md">简体中文</a> |
-  <a href="https://fixit.lruihao.cn/zh-cn/ecosystem/hugo-fixit/{component-xxx}/?lang=chinese_traditional">繁體中文</a> |
-  English |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=french">Français</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=russian">Русский язык</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=spanish">Español</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=hindi">हिन्दी</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=deutsch">deutsch</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=korean">한국어</a> |
-  <a href="https://fixit.lruihao.cn/ecosystem/hugo-fixit/{component-xxx}/?lang=japanese">しろうと</a>
+  English
 </div>
 
-## Demo
+## Overview
 
-TODO demo here if needed
+`cmpt-ai-declaration` is a FixIt theme component that renders an AI declaration block before article content.
 
-## Features
+It supports:
 
-- [ ] Foo
-- [ ] Bar
+- `postContentBefore` injection
+- standalone style injection through `assets`
+- site-wide defaults plus page-level overrides
+- Markdown in `description`
+- lightweight inline interaction without extra bundled JavaScript
 
 ## Requirements
 
-- FixIt v0.4.0 or later.
+- FixIt `v0.4.0` or later
+- Hugo Extended `v0.147.7` or later
 
-## Install Component
+## Installation
 
-The installation method is the same as [installing a theme](https://fixit.lruihao.cn/documentation/installation/). There are several ways to install, choose one, Here are two mainstream ways.
-
-### Install as Hugo Module
-
-First make sure that your project itself is a [Hugo module](https://gohugo.io/hugo-modules/use-modules/#initialize-a-new-module).
-
-Then add this theme component to your `hugo.toml` configuration file:
+### Install as a Hugo module
 
 ```toml
 [module]
@@ -47,67 +35,67 @@ Then add this theme component to your `hugo.toml` configuration file:
 path = "github.com/hugo-fixit/FixIt"
 
 [[module.imports]]
-path = "github.com/hugo-fixit/{component-xxx}"
+path = "github.com/0x5c0f/cmpt-ai-declaration"
 ```
 
-On the first start of Hugo it will download the required files.
-
-To update to the latest version of the module run:
-
-```bash
-hugo mod get -u
-hugo mod tidy
-```
-
-### Install as Git Submodule
-
-Clone [FixIt](https://github.com/hugo-fixit/FixIt) and this git repository into your theme folder and add it as submodules of your website directory.
+### Install as a Git submodule
 
 ```bash
 git submodule add https://github.com/hugo-fixit/FixIt.git themes/FixIt
-git submodule add https://github.com/hugo-fixit/{component-xxx}.git themes/{component-xxx}
+git submodule add https://github.com/0x5c0f/cmpt-ai-declaration.git themes/cmpt-ai-declaration
 ```
 
-Next edit `hugo.toml` of your project and add this theme component to your themes:
-
 ```toml
-theme = ["FixIt", "{component-xxx}"]
+theme = ["FixIt", "cmpt-ai-declaration"]
 ```
 
 ## Configuration
 
-In order to inject the partial `{xxx}.fixit.html` into the `custom-assets` through the [custom block](https://fixit.lruihao.cn/references/blocks/) opened by the FixIt theme, you need to fill in the following necessary configurations:
+Add both partials to your site config:
 
 ```toml
-[params]
-
 [params.customPartials]
-# ... other partials
-head = []
-profile = []
-aside = []
-comment = []
-footer = []
-widgets = []
-assets = [
-  "inject/{xxx}.fixit.html",
-]
-postFooterBefore = []
-postFooterAfter = []
-# ... other partials
+assets = ["inject/cmpt-ai-declaration.fixit.html"]
+postContentBefore = ["plugin/ai-declaration.html"]
 ```
 
-TODO configuration here if needed ...
+Set global defaults:
 
-## Use Shortcode
-
-Here is an example of usage:
-
-```markdown
-{{< shortcode-xxx >}}
+```toml
+[params.page.aiDeclaration]
+enable = false
+description = """This article was created with AI assistance and reviewed by a human."""
+url = ""
 ```
+
+Override per page:
+
+```yaml
+---
+aiDeclaration:
+  enable: true
+  description: |
+    This article was drafted with **Claude 4.5 Sonnet**.
+
+    Key facts and final wording were manually reviewed.
+  url: https://claude.ai/share/your-share-link
+---
+```
+
+Priority order:
+
+- page config
+- site config
+- built-in defaults
+
+## Notes
+
+- The visual style intentionally stays close to the original article example
+- The clickable header is implemented with a `button` for better accessibility
+- Dark mode colors were adjusted to avoid weak contrast in the original demo
 
 ## References
 
+- [Custom Blocks | FixIt](https://fixit.lruihao.cn/references/blocks/)
 - [Develop Theme Components | FixIt](https://fixit.lruihao.cn/contributing/components/)
-- [How to Develop a Hugo Theme Component | FixIt](https://fixit.lruihao.cn/components/dev-component/)
+- [AI 创作内容声明组件](https://blog.0x5c0f.cc/posts/hugo/ai%E5%88%9B%E4%BD%9C%E5%86%85%E5%AE%B9%E5%A3%B0%E6%98%8E%E7%BB%84%E4%BB%B6/)
