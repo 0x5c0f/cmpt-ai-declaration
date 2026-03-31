@@ -14,7 +14,7 @@
 It supports:
 
 - `postContentBefore` injection
-- standalone style injection through `assets`
+- early style injection through `head` to reduce refresh flicker
 - site-wide defaults plus page-level overrides
 - Markdown in `description`
 - lightweight inline interaction without extra bundled JavaScript
@@ -55,7 +55,7 @@ Add both partials to your site config:
 
 ```toml
 [params.customPartials]
-assets = ["inject/cmpt-ai-declaration.fixit.html"]
+head = ["inject/cmpt-ai-declaration.fixit.html"]
 postContentBefore = ["plugin/ai-declaration.html"]
 ```
 

@@ -14,7 +14,7 @@
 ## 特性
 
 - 基于 `postContentBefore` 注入到文章正文前
-- 基于 `assets` 注入独立样式，不污染主题主样式文件
+- 基于 `head` 提前注入独立样式，减少刷新时的无样式闪烁
 - 支持全局配置和单篇 Front Matter 配置
 - 配置优先级为：页面配置 > 全局配置 > 内置默认值
 - `description` 支持 Markdown
@@ -76,7 +76,7 @@ theme = ["FixIt", "cmpt-ai-declaration"]
 
 ```toml
 [params.customPartials]
-assets = ["inject/cmpt-ai-declaration.fixit.html"]
+head = ["inject/cmpt-ai-declaration.fixit.html"]
 postContentBefore = ["plugin/ai-declaration.html"]
 ```
 
