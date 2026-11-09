@@ -13,7 +13,7 @@
 
 It supports:
 
-- `postContentBefore` injection
+- `post_content_before` injection
 - early style injection through `head` to reduce refresh flicker
 - site-wide defaults plus page-level overrides
 - Markdown in `description`
@@ -21,7 +21,7 @@ It supports:
 
 ## Requirements
 
-- FixIt `v0.4.0` or later
+- FixIt `v1.0.0-rc.2` or later
 - Hugo Extended `v0.147.7` or later
 
 ## Installation
@@ -54,15 +54,15 @@ theme = ["FixIt", "cmpt-ai-declaration"]
 Add both partials to your site config:
 
 ```toml
-[params.customPartials]
+[params.custom_partials]
 head = ["inject/cmpt-ai-declaration.fixit.html"]
-postContentBefore = ["plugin/ai-declaration.html"]
+post_content_before = ["plugin/ai-declaration.html"]
 ```
 
 Set global defaults:
 
 ```toml
-[params.page.aiDeclaration]
+[params.ai_declaration]
 enable = false
 description = """This article was created with AI assistance and reviewed by a human."""
 url = ""
@@ -72,7 +72,7 @@ Override per page:
 
 ```yaml
 ---
-aiDeclaration:
+ai_declaration:
   enable: true
   description: |
     This article was drafted with **Claude 4.5 Sonnet**.

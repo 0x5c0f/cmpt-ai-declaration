@@ -4,8 +4,8 @@
     "description" "本文使用 AI 工具辅助创作，内容已经人工审核。"
     "url" ""
   -}}
-  {{- $globalConfig := site.Params.page.aiDeclaration | default dict -}}
-  {{- $pageConfig := .Params.aiDeclaration | default dict -}}
+  {{- $globalConfig := site.Params.ai_declaration | default dict -}}
+  {{- $pageConfig := .Params.ai_declaration | default dict -}}
   {{- $config := merge $defaults $globalConfig $pageConfig -}}
   {{- if $config.enable -}}
     {{- $description := $config.description | default (index $defaults "description") -}}

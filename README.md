@@ -13,7 +13,7 @@
 
 ## 特性
 
-- 基于 `postContentBefore` 注入到文章正文前
+- 基于 `post_content_before` 注入到文章正文前
 - 基于 `head` 提前注入独立样式，减少刷新时的无样式闪烁
 - 支持全局配置和单篇 Front Matter 配置
 - 配置优先级为：页面配置 > 全局配置 > 内置默认值
@@ -23,7 +23,7 @@
 
 ## 要求
 
-- FixIt `v0.4.0` 或更高版本
+- FixIt `v1.0.0-rc.2` 或更高版本
 - Hugo Extended `v0.147.7` 或更高版本
 
 ## 安装组件
@@ -72,18 +72,18 @@ theme = ["FixIt", "cmpt-ai-declaration"]
 
 在站点 `hugo.toml` 中挂载组件 partial。
 
-如果你已经有其他 `customPartials` 配置，请把下面两个值追加到现有数组里，不要整段覆盖。
+如果你已经有其他 `custom_partials` 配置，请把下面两个值追加到现有数组里，不要整段覆盖。
 
 ```toml
-[params.customPartials]
+[params.custom_partials]
 head = ["inject/cmpt-ai-declaration.fixit.html"]
-postContentBefore = ["plugin/ai-declaration.html"]
+post_content_before = ["plugin/ai-declaration.html"]
 ```
 
 ### 2. 设置全局默认配置
 
 ```toml
-[params.page.aiDeclaration]
+[params.ai_declaration]
 enable = false
 description = """本文使用 AI 工具辅助创作，内容已经人工审核。"""
 url = ""
@@ -100,7 +100,7 @@ url = ""
 ```yaml
 ---
 title: "一篇使用 AI 辅助完成的文章"
-aiDeclaration:
+ai_declaration:
   enable: true
   description: |
     本文使用 **Claude 4.5 Sonnet** 辅助完成：
@@ -116,7 +116,7 @@ aiDeclaration:
 
 ## 渲染逻辑
 
-- 页面没有配置时，读取 `params.page.aiDeclaration`
+- 页面没有配置时，读取 `params.ai_declaration`
 - 页面有配置时，页面配置会覆盖全局配置中同名字段
 - `description` 未设置时，会回退到内置默认文案
 - 只有 `enable = true` 时组件才会渲染
